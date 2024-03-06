@@ -9,8 +9,8 @@ export interface Output {
 export default class RegisterUser {
   constructor(private readonly repository: UserRepositoryPort) {}
 
-  execute(newUser: User): Output {
-    const existUser = this.repository.findByEmail(newUser.email);
+  async execute(newUser: User): Promise<Output> {
+    const existUser = await this.repository.findByEmail(newUser.email);
 
     if (existUser) {
       return { success: false, message: "User already exists" };
